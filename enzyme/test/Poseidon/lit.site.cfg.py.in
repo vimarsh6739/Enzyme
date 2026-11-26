@@ -59,6 +59,9 @@ config.substitutions.append(('%FPProfileInc',
 config.substitutions.append(('%gpu_cost_model', '@POSEIDON_TEST_COST_MODEL@'))
 config.substitutions.append(('%gpu_arch', '@POSEIDON_TEST_GPU_ARCH_RESOLVED@'))
 
+if '@POSEIDON_TRITON_SOURCE_DIR@':
+    config.available_features.add('poseidon-triton')
+
 herbie_binary = '@POSEIDON_HERBIE_BINARY_PATH@'
 config.substitutions.append(('%herbie_binary', herbie_binary))
 if os.path.isfile(herbie_binary) and os.access(herbie_binary, os.X_OK):

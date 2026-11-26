@@ -6,6 +6,19 @@
 // RUN:   --poseidon-rewrite="herbie-results=%S/Inputs/no_such_file.json" \
 // RUN:   %s -o /dev/null 2>&1 | FileCheck %s --check-prefix=MISSING
 
+// RUN: %poseidon_mlir_opt %s --poseidon-rewrite="least-error herbie-results=%S/Inputs/herbie_results.json" | FileCheck %s --check-prefix=LEAST
+// RUN: %poseidon_mlir_opt %s --poseidon-rewrite="least-error exclude-ops=math.log1p herbie-results=%S/Inputs/herbie_results.json" | FileCheck %s --check-prefix=EXCLUDE
+// EXCLUDE-LABEL: func.func @log_one_plus
+// EXCLUDE: arith.addf
+// EXCLUDE-NEXT: math.log %
+// EXCLUDE-NEXT: return
+// LEAST-LABEL: func.func @expm1_over
+// LEAST: math.expm1
+// LEAST-NEXT: arith.divf
+// LEAST-LABEL: func.func @nothing
+// LEAST: math.sin
+// LEAST-NEXT: math.cos
+
 // Herbie's answers are read from a results.json in the format a real run
 // writes, and matched to each core by its :name. The seed is one that picks
 // the candidates checked here; how candidates are built is tested in

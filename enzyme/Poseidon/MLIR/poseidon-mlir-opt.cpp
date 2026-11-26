@@ -20,10 +20,18 @@
 
 #include "Passes.h"
 
+#ifdef POSEIDON_HAS_TRITON
+#include "triton/Dialect/Triton/IR/Dialect.h"
+#endif
+
 int main(int argc, char **argv) {
   mlir::DialectRegistry registry;
   registry.insert<mlir::arith::ArithDialect, mlir::func::FuncDialect,
                   mlir::math::MathDialect, mlir::tensor::TensorDialect>();
+
+#ifdef POSEIDON_HAS_TRITON
+  registry.insert<mlir::triton::TritonDialect>();
+#endif
 
   mlir::poseidon::registerPoseidonPasses();
   // For tests that clean up after the rewrite.

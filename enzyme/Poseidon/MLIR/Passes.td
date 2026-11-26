@@ -12,7 +12,7 @@
 
 include "mlir/Pass/PassBase.td"
 
-def PoseidonRewritePass : Pass<"poseidon-rewrite", "func::FuncOp"> {
+def PoseidonRewritePass : Pass<"poseidon-rewrite"> {
   let summary = "Rewrite chains of elementwise floating-point tensor ops";
   let description = [{
     Finds chains of elementwise arith and math ops on floating-point tensors,
@@ -25,6 +25,8 @@ def PoseidonRewritePass : Pass<"poseidon-rewrite", "func::FuncOp"> {
   }];
   let dependentDialects = ["arith::ArithDialect", "math::MathDialect"];
   let options = [
+    Option<"onlyFunction", "only-function", "std::string",
+           /*default=*/"\"\"", "Restrict rewriting to this function name">,
     Option<"remarkFPCore", "remark-fpcore", "bool", /*default=*/"false",
            "Emit a remark on each chain output with its FPCore expression">,
     Option<"herbieResults", "herbie-results", "std::string",
@@ -33,6 +35,11 @@ def PoseidonRewritePass : Pass<"poseidon-rewrite", "func::FuncOp"> {
            "running Herbie">,
     Option<"seed", "seed", "uint64_t", /*default=*/"0",
            "Seed of the random choice among Herbie's candidates">,
+    ListOption<"excludeOps", "exclude-ops", "std::string",
+               "Skip candidates that emit a listed MLIR math or arithmetic op">,
+    Option<"leastError", "least-error", "bool", /*default=*/"false",
+           "Pick the buildable candidate with the lowest estimated error, "
+           "keeping the original unless the estimate strictly improves">,
     Option<"runHerbie", "run-herbie", "bool", /*default=*/"false",
            "Run Herbie on each function's chains (ignored with "
            "herbie-results)">,

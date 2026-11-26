@@ -1,0 +1,31 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "triton": "3.9.0",
+  "torch": "2.12.0a0+git0d62256",
+  "cuda": "12.9",
+  "fp_fusion": false,
+  "compiler": "LLVM (http://llvm.org/):\n  LLVM version 24.0.0git\n  Optimized build.",
+  "triton_frontend_base": "46f4934ff8",
+  "triton_python_checkout": "5b86f2c73b2b481be3b05dd018df7bdadcafe15a",
+  "enzyme_jax": "a56c4856ebe06a673e5c09e3fee88de45b75bba4",
+  "poseidon_upstream": "4a2763fd2d80518dfed8e436ea5d73ade0140953",
+  "poseidon_tool_commit": "adbdd652c3243153125580bb2d9e933b509ff6a0",
+  "llvm_checkout": "9d618fc0243103263ebf9bdcd08ef25e871d9c78",
+  "herbie_release": "https://github.com/EnzymeAD/Enzyme/releases/tag/nightly-poseidon",
+  "herbie_release_file_sha256": "e9098352aa5786f57fa77f05cf83b045d8b57fb54417032eb099d183cff44a83",
+  "herbie_binary_sha256": "d64a4fd9dbe48a948cf7597076055eb5955dfb9c73784e252675c8b6c4b62e5c",
+  "herbie_version": "2.3",
+  "herbie_platform": "default",
+  "herbie_seed": 239778888,
+  "herbie_points": 1024,
+  "expected_hvp_mlir_sha256": {
+    "charbonnier/base-hvp.mlir": "10318d128f573221505b56e78977b1dae35c00c1e8f168e676679ed0138a2eb1",
+    "charbonnier/both-hvp.mlir": "217dec5708c987ea2032d3999ff06e27f949e4c6149b3cc69b1c766d73b33c81",
+    "charbonnier/post-hvp.mlir": "a62f4108a84eec7944c35aee1fc139e930ee5f6cba6dd533576f8ab399146253",
+    "charbonnier/pre-hvp.mlir": "893b2534422d004ee11db1f9fdc8397f7e113823a293a9e95844f920f0075baa",
+    "saturate/base-hvp.mlir": "ca17da3d0c68462410d543791283d522cb85da9cc74f3908611e8e098c0cb094",
+    "saturate/both-hvp.mlir": "a385a74804362e6c205800c5ce4268dfed49916fe50818850642118d60aa8122",
+    "saturate/post-hvp.mlir": "e3509c1fffc3ddc20bf765bbfbde1a3aaab83cf2e421de64d476386870f2b665",
+    "saturate/pre-hvp.mlir": "f1d43948d575b07354a47aeff133b7c4c43ff6a8d3f445ca39dc522cef924076"
+  }
+}

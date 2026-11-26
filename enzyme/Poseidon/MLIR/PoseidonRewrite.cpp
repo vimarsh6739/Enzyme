@@ -133,11 +133,12 @@ struct KnownOp {
 // The table, looked up by an op's name in one context and by FPCore operator.
 class ChainOpTable {
 public:
-  explicit ChainOpTable(MLIRContext *context) {
+  ChainOpTable(MLIRContext *context, ArrayRef<std::string> excludeOps) {
     for (const ChainOp &op : chainOps) {
       OperationName name(op.mlir, context);
       byName.try_emplace(name, &op);
-      byFPCore.try_emplace(op.fpcore, name, &op);
+      if (!llvm::is_contained(excludeOps, op.mlir))
+        byFPCore.try_emplace(op.fpcore, name, &op);
     }
   }
 
@@ -491,7 +492,7 @@ struct PoseidonRewrite
   // once, so each run reads the options and builds what it needs itself.
 
   // Herbie's answers by core name, read from herbie-results.
-  FailureOr<Answers> readAnswers(func::FuncOp func) const {
+  FailureOr<Answers> readAnswers(FunctionOpInterface func) const {
     std::string error;
     std::optional<std::string> json =
         poseidon::readHerbieResults(herbieResults, error);
@@ -507,7 +508,7 @@ struct PoseidonRewrite
   }
 
   // How run-herbie runs Herbie.
-  FailureOr<herbie::HerbieRunOptions> herbieOptions(func::FuncOp func) const {
+  FailureOr<herbie::HerbieRunOptions> herbieOptions(FunctionOpInterface func) const {
     herbie::HerbieRunOptions opts;
     opts.Program = herbieBinary.empty() ? std::string(HERBIE_BINARY)
                                         : herbieBinary.getValue();
@@ -545,7 +546,7 @@ struct PoseidonRewrite
 
   // Runs Herbie on one function's cores. Its answers by core name; none when
   // it ran out of time; failure when it could not run.
-  FailureOr<Answers> askHerbie(func::FuncOp func,
+  FailureOr<Answers> askHerbie(FunctionOpInterface func,
                                const std::vector<std::string> &cores,
                                const herbie::HerbieRunOptions &opts) const {
     herbie::HerbieRunResult run;
@@ -555,7 +556,7 @@ struct PoseidonRewrite
       // digests is not safe to fill from two threads at once.
       static std::mutex herbieLock;
       std::lock_guard<std::mutex> guard(herbieLock);
-      run = herbie::runHerbie(cores, opts, ("@" + func.getSymName()).str());
+      run = herbie::runHerbie(cores, opts, ("@" + func.getName()).str());
     }
     switch (run.Result) {
     case herbie::HerbieRunResult::Outcome::Ok:
@@ -606,6 +607,7 @@ struct PoseidonRewrite
     ExprBuilder builder(table, cast<RankedTensorType>(output.getType()),
                         inputs);
     SmallVector<poseidon::HerbieExpr> buildable;
+    double bestError = answer.initialErrorBits;
     for (const poseidon::HerbieCandidate &candidate : answer.candidates) {
       // Why the candidate cannot be built, when it cannot: unparseable, or no
       // ops for it.
@@ -619,15 +621,23 @@ struct PoseidonRewrite
                         << ": " << candidate.expr
                         << (canBuild ? "" : " [cannot build: " + why + "]")
                         << "\n");
-      if (canBuild)
-        buildable.push_back(std::move(*expr));
+      if (!canBuild)
+        continue;
+      if (leastError) {
+        // An unknown estimate (NaN) cannot establish an improvement.
+        if (!(candidate.errorBits < bestError))
+          continue;
+        bestError = candidate.errorBits;
+        buildable.clear();
+      }
+      buildable.push_back(std::move(*expr));
     }
     if (buildable.empty()) {
       LLVM_DEBUG(DBGS() << "  no candidate can be built; left as is\n");
       return std::nullopt;
     }
 
-    // Not the best candidate: any one that can be built. The draw depends on
+    // By default draw from all buildable candidates. The draw depends on
     // the seed and the core's name only, so a run makes the same choices
     // whatever order the functions are processed in. std::mt19937_64's
     // output is fixed by the C++ standard, unlike the std distributions, so
@@ -640,9 +650,21 @@ struct PoseidonRewrite
   }
 
   void runOnOperation() override {
-    func::FuncOp func = getOperation();
+    // A bare --poseidon-rewrite runs on the module. A nested pipeline can
+    // also select just tt.func or func.func.
+    WalkResult result = getOperation()->walk([&](FunctionOpInterface func) {
+      if (!onlyFunction.empty() && func.getName() != onlyFunction.getValue())
+        return WalkResult::advance();
+      return failed(rewriteFunction(func)) ? WalkResult::interrupt()
+                                           : WalkResult::advance();
+    });
+    if (result.wasInterrupted())
+      signalPassFailure();
+  }
+
+  LogicalResult rewriteFunction(FunctionOpInterface func) {
     // The chain ops, as this function's context names them.
-    ChainOpTable table(&getContext());
+    ChainOpTable table(&getContext(), excludeOps);
     SmallVector<Chain> chains;
     func.walk([&](Block *block) {
       for (Chain &chain : findChains(*block, table))
@@ -657,7 +679,7 @@ struct PoseidonRewrite
     for (Chain &chain : chains)
       for (Value output : chain.outputs) {
         names.push_back(
-            llvm::formatv("{0}/{1}", func.getSymName(), names.size()).str());
+            llvm::formatv("{0}/{1}", func.getName(), names.size()).str());
         cores.push_back(renderFPCore(output, chain, table, names.back()));
         if (remarkFPCore)
           emitRemark(output.getLoc()) << cores.back();
@@ -669,21 +691,21 @@ struct PoseidonRewrite
     if (!herbieResults.empty()) {
       FailureOr<Answers> read = readAnswers(func);
       if (failed(read))
-        return signalPassFailure();
+        return failure();
       answers = std::move(*read);
     } else if (runHerbie) {
       FailureOr<herbie::HerbieRunOptions> opts = herbieOptions(func);
       if (failed(opts))
-        return signalPassFailure();
+        return failure();
       if (!cores.empty()) {
         FailureOr<Answers> asked = askHerbie(func, cores, *opts);
         if (failed(asked))
-          return signalPassFailure();
+          return failure();
         answers = std::move(*asked);
       }
     }
     if (!answers)
-      return;
+      return success();
 
     // First decide every rewrite, then change the IR, so that what is
     // decided is about the function as it came in.
@@ -695,7 +717,7 @@ struct PoseidonRewrite
                 choose(table, *answers, names[core++], chain, output))
           rewrites.push_back(std::move(*rewrite));
     if (rewrites.empty())
-      return;
+      return success();
 
     // Each rewrite is built just before the op that computed the output, where
     // every input it uses is already defined, and takes over all of the
@@ -717,6 +739,7 @@ struct PoseidonRewrite
       for (Operation *op : llvm::reverse(chain.ops))
         if (op->use_empty())
           rewriter.eraseOp(op);
+    return success();
   }
 };
 
