@@ -1,0 +1,2 @@
+Applying solution for (- (* (+ v0 1) (+ v0 1)) (* v0 v0)) --(4)-> #s(approx (- (* (+ v0 1) (+ v0 1)) (* v0 v0)) (-.f64 v0 (neg.f64 v0)))
+Applying solution for (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) --(0)-> #s(approx (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) (-.f64 v1 (neg.f64 v1)))

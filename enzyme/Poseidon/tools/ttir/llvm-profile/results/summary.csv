@@ -1,0 +1,7 @@
+variant,output,samples,formula_exact_count,max_relative_error,mean_relative_error,poseidon_estimated_relative_error,candidate
+baseline,value,32,27,2.709302027904711e-09,1.6559612592895266e-10,,
+baseline,jvp,32,32,0.0,0.0,,
+1e-12,value,32,0,0.26666666666666666,0.018503231021429478,3.104408598033522e-16,R0_4
+1e-12,jvp,32,32,0.0,0.0,0,R0_0
+1e-3,value,32,0,0.9999999997808653,0.9814967689785705,7.182401926830881e-07,R0_5
+1e-3,jvp,32,32,0.0,0.0,0,R0_0

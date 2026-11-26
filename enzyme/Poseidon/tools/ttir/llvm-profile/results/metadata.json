@@ -1,0 +1,22 @@
+{
+  "gpu": "NVIDIA GeForce RTX 5090",
+  "target": "sm_120",
+  "toolkit": "nvcc: NVIDIA (R) Cuda compiler driver\nCopyright (c) 2005-2025 NVIDIA Corporation\nBuilt on Tue_May_27_02:21:03_PDT_2025\nCuda compilation tools, release 12.9, V12.9.86\nBuild cuda_12.9.r12.9/compiler.36037853_0",
+  "triton_python": "3.9.0",
+  "triton_python_checkout": "5b86f2c73b2b481be3b05dd018df7bdadcafe15a",
+  "enzyme_jax": "a56c4856ebe06a673e5c09e3fee88de45b75bba4",
+  "poseidon_release": "359f5ac9000d452b10e6186f07454ab2fc19281b",
+  "release_asset": "https://github.com/EnzymeAD/Enzyme/releases/download/nightly-poseidon/poseidon-explorer-llvm21.tar.gz",
+  "release_asset_sha256": "e9098352aa5786f57fa77f05cf83b045d8b57fb54417032eb099d183cff44a83",
+  "llvm": "Ubuntu 21.1.8; commit 2078da43e25a",
+  "herbie": "2.3",
+  "herbie_sha256": "d64a4fd9dbe48a948cf7597076055eb5955dfb9c73784e252675c8b6c4b62e5c",
+  "cost_model_sha256": "054fd8753fa9313da55e3011e385ddeffd9cb5581050c005526b0babd82d1f58",
+  "herbie_platform_sha256": "b652470d058b0391286f18940c059eb497f362a2d13d0714139aba88d8aaff79",
+  "runtime_source": "The checked-out FPProfilerCUDA.cu is identical at the release and MLIR PR commits.",
+  "run_unit": "One warp of 32 lanes for each of 32 input values; a single scalar output per launch.",
+  "calibration_min": 1.125,
+  "calibration_max": 2415919104.0,
+  "holdout_min": 1.375,
+  "holdout_max": 2281701376.0
+}
