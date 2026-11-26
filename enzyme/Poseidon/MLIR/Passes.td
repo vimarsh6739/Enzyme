@@ -12,7 +12,7 @@
 
 include "mlir/Pass/PassBase.td"
 
-def PoseidonRewritePass : Pass<"poseidon-rewrite", "func::FuncOp"> {
+def PoseidonRewritePass : Pass<"poseidon-rewrite"> {
   let summary = "Rewrite chains of elementwise floating-point tensor ops";
   let description = [{
     Finds chains of elementwise arith and math ops on floating-point tensors,

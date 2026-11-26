@@ -491,7 +491,7 @@ struct PoseidonRewrite
   // once, so each run reads the options and builds what it needs itself.
 
   // Herbie's answers by core name, read from herbie-results.
-  FailureOr<Answers> readAnswers(func::FuncOp func) const {
+  FailureOr<Answers> readAnswers(FunctionOpInterface func) const {
     std::string error;
     std::optional<std::string> json =
         poseidon::readHerbieResults(herbieResults, error);
@@ -507,7 +507,7 @@ struct PoseidonRewrite
   }
 
   // How run-herbie runs Herbie.
-  FailureOr<herbie::HerbieRunOptions> herbieOptions(func::FuncOp func) const {
+  FailureOr<herbie::HerbieRunOptions> herbieOptions(FunctionOpInterface func) const {
     herbie::HerbieRunOptions opts;
     opts.Program = herbieBinary.empty() ? std::string(HERBIE_BINARY)
                                         : herbieBinary.getValue();
@@ -545,7 +545,7 @@ struct PoseidonRewrite
 
   // Runs Herbie on one function's cores. Its answers by core name; none when
   // it ran out of time; failure when it could not run.
-  FailureOr<Answers> askHerbie(func::FuncOp func,
+  FailureOr<Answers> askHerbie(FunctionOpInterface func,
                                const std::vector<std::string> &cores,
                                const herbie::HerbieRunOptions &opts) const {
     herbie::HerbieRunResult run;
@@ -555,7 +555,7 @@ struct PoseidonRewrite
       // digests is not safe to fill from two threads at once.
       static std::mutex herbieLock;
       std::lock_guard<std::mutex> guard(herbieLock);
-      run = herbie::runHerbie(cores, opts, ("@" + func.getSymName()).str());
+      run = herbie::runHerbie(cores, opts, ("@" + func.getName()).str());
     }
     switch (run.Result) {
     case herbie::HerbieRunResult::Outcome::Ok:
@@ -640,7 +640,17 @@ struct PoseidonRewrite
   }
 
   void runOnOperation() override {
-    func::FuncOp func = getOperation();
+    // A bare --poseidon-rewrite runs on the module. A nested pipeline can
+    // also select just tt.func or func.func.
+    WalkResult result = getOperation()->walk([&](FunctionOpInterface func) {
+      return failed(rewriteFunction(func)) ? WalkResult::interrupt()
+                                           : WalkResult::advance();
+    });
+    if (result.wasInterrupted())
+      signalPassFailure();
+  }
+
+  LogicalResult rewriteFunction(FunctionOpInterface func) {
     // The chain ops, as this function's context names them.
     ChainOpTable table(&getContext());
     SmallVector<Chain> chains;
@@ -657,7 +667,7 @@ struct PoseidonRewrite
     for (Chain &chain : chains)
       for (Value output : chain.outputs) {
         names.push_back(
-            llvm::formatv("{0}/{1}", func.getSymName(), names.size()).str());
+            llvm::formatv("{0}/{1}", func.getName(), names.size()).str());
         cores.push_back(renderFPCore(output, chain, table, names.back()));
         if (remarkFPCore)
           emitRemark(output.getLoc()) << cores.back();
@@ -669,21 +679,21 @@ struct PoseidonRewrite
     if (!herbieResults.empty()) {
       FailureOr<Answers> read = readAnswers(func);
       if (failed(read))
-        return signalPassFailure();
+        return failure();
       answers = std::move(*read);
     } else if (runHerbie) {
       FailureOr<herbie::HerbieRunOptions> opts = herbieOptions(func);
       if (failed(opts))
-        return signalPassFailure();
+        return failure();
       if (!cores.empty()) {
         FailureOr<Answers> asked = askHerbie(func, cores, *opts);
         if (failed(asked))
-          return signalPassFailure();
+          return failure();
         answers = std::move(*asked);
       }
     }
     if (!answers)
-      return;
+      return success();
 
     // First decide every rewrite, then change the IR, so that what is
     // decided is about the function as it came in.
@@ -695,7 +705,7 @@ struct PoseidonRewrite
                 choose(table, *answers, names[core++], chain, output))
           rewrites.push_back(std::move(*rewrite));
     if (rewrites.empty())
-      return;
+      return success();
 
     // Each rewrite is built just before the op that computed the output, where
     // every input it uses is already defined, and takes over all of the
@@ -717,6 +727,7 @@ struct PoseidonRewrite
       for (Operation *op : llvm::reverse(chain.ops))
         if (op->use_empty())
           rewriter.eraseOp(op);
+    return success();
   }
 };
 

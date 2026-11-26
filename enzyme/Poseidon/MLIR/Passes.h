@@ -10,7 +10,7 @@
 #ifndef POSEIDON_MLIR_PASSES_H
 #define POSEIDON_MLIR_PASSES_H
 
-#include "mlir/Dialect/Func/IR/FuncOps.h"
+#include "mlir/Interfaces/FunctionInterfaces.h"
 #include "mlir/Pass/Pass.h"
 
 namespace mlir::poseidon {

@@ -23,7 +23,7 @@ add_mlir_library(
   PUBLIC
   LLVMSupport
   MLIRArithDialect
-  MLIRFuncDialect
+  MLIRFunctionInterfaces
   MLIRIR
   MLIRMathDialect
   MLIRPass
@@ -39,6 +39,23 @@ add_llvm_executable(poseidon-mlir-opt poseidon-mlir-opt.cpp
 llvm_update_compile_flags(poseidon-mlir-opt)
 target_link_libraries(
   poseidon-mlir-opt
-  PRIVATE MLIRPoseidonTransforms MLIROptLib MLIRTransforms)
+  PRIVATE MLIRPoseidonTransforms MLIRFuncDialect MLIROptLib MLIRTransforms)
+
+# A source checkout keeps Triton optional and uses the same MLIR as the pass.
+set(POSEIDON_TRITON_SOURCE_DIR "" CACHE PATH
+    "Optional Triton source tree for reading and writing TTIR")
+if(POSEIDON_TRITON_SOURCE_DIR)
+  # Give Triton the user's compiler flags, without Enzyme's warning policy.
+  function(add_poseidon_triton)
+    set(CMAKE_CXX_FLAGS "$CACHE{CMAKE_CXX_FLAGS}")
+    add_subdirectory("${POSEIDON_TRITON_SOURCE_DIR}" triton EXCLUDE_FROM_ALL)
+  endfunction()
+  add_poseidon_triton()
+  target_link_libraries(poseidon-mlir-opt PRIVATE TritonIR MLIRLLVMDialect)
+  target_include_directories(
+    poseidon-mlir-opt PRIVATE "${POSEIDON_TRITON_SOURCE_DIR}/include"
+                             "${CMAKE_CURRENT_BINARY_DIR}/triton/include")
+  target_compile_definitions(poseidon-mlir-opt PRIVATE POSEIDON_HAS_TRITON)
+endif()
 
 install(TARGETS poseidon-mlir-opt RUNTIME DESTINATION ${CMAKE_INSTALL_BINDIR})
