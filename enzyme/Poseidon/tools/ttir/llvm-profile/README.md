@@ -12,7 +12,8 @@ Both stages see the same RTX 5090, calibration inputs and target cost model.
 | Target 10⁻¹² | 2x | 3.10 × 10⁻¹⁶ | 26.7% | 32/32 |
 | Target 10⁻³ | 1 | 7.18 × 10⁻⁷ | ≈100% | 32/32 |
 
-For x = 1.375, the GPU returned 3.75, 2.75 and 1.0 respectively. All tuned
+For x = 1.375, the control and the 10⁻¹⁷ target both returned the exact value,
+3.75. The looser targets returned 2.75 (10⁻¹²) and 1.0 (10⁻³). All tuned
 JVP kernels emitted dx + dx. The solver models error over the profiled
 workload. Its estimated error and the worst error on independent points are
 different statistics. Mean observed primal relative errors were 1.85% and
@@ -33,6 +34,24 @@ primal adjoint Σ 2(x+1) too. Calibration used x = 1.125 × 2ⁱ for i from 0
 to 31. Each held-out x differs from every training x and lies within their
 range. The first 31 are 1.375 × 2ⁱ and the last is 1.0625 × 2³¹. The tangent
 cycles through 0.25, 0.5 and 0.75.
+
+## Where this fits
+
+| Prior result | Connection |
+|---|---|
+| ADAPT estimates how local rounding affects the output using AD. Pareto Herbie searches for fast, accurate expressions by combining rewrites and precision changes. | Both techniques underlie the search used here. [ADAPT, SC 2018](https://w3.cs.jmu.edu/lam2mo/papers/2018-Menon-SC.pdf) · [Pareto Herbie, ARITH 2021](https://fpbench.cs.washington.edu/arith21-paper.pdf) |
+| Poseidon tuned a quaternion Jacobian. It profiled 1,000 inputs and checked a million more against MPFR. | Applying Poseidon to derivative code and validating it on held-out data both have direct precedent. [Poseidon, CGO 2026, §IV-B](https://ece.is/assets/pdf/poseidon-cgo26.pdf) |
+| Chiluveru and colleagues fitted piecewise polynomials to sigmoid, tanh and their first derivatives. Hückelheim and colleagues measured how cancellation can give a much larger error in an AD result than in the function value. | There are prior designs for accurate value and gradient implementations, and prior measurements of the gap between their errors. [Activation approximation, 2021](https://ietresearch.onlinelibrary.wiley.com/doi/10.1049/cds2.12058) · [AD pitfalls, Fig. 4](https://differentiable.xyz/papers-2023/paper_22.pdf) |
+| Park and colleagues constructed floating-point networks that can realize specified outputs and AD gradients under their assumptions. | Matching values alone can leave considerable freedom in AD gradients, even at machine-representable inputs. [Park et al., ICML 2026](https://proceedings.mlr.press/v306/park26r.html) |
+
+Our controlled comparison asks where to place the rewrite in a Triton AD
+pipeline. On the same 256 inputs for x/(1+x), tuning the JVP alone and tuning
+both stages gave the same worst observed value and JVP errors (2 and 3 ULP).
+When we differentiated those JVPs again, the second schedule produced 14
+false zeros in curvature. The first produced none. The source rewrite selected
+a small-input branch that returns x, whose curvature is zero. This observation
+is specific to the expression, search and input range tested. The two compiler
+stages still choose their candidates independently. [TTIR pass schedules and raw results](../README.md)
 
 ## Rerun
 
@@ -67,6 +86,6 @@ algebraic references are evaluated with 100 decimal digits. The measured
 costs in the explanation files are solver cost units.
 
 The raw samples, instruction profiles, solver explanations, exact accepted
-Herbie expressions and emitted LLVM bodies are in `results/`. The optimizer
-and Herbie search were run twice from separate output directories, giving
-the same held-out results in both runs.
+Herbie expressions and emitted LLVM bodies are in `results/`. We repeated the
+10⁻¹² and 10⁻³ runs, including the optimizer and Herbie search, in separate
+output directories and obtained the same held-out results.
