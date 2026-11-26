@@ -1,0 +1,851 @@
+{
+  "function": {
+    "ir": "preprocess_response_jvp",
+    "loc": {
+      "col": 0,
+      "file": "margin.ttir",
+      "line": 10
+    },
+    "name": "response_jvp",
+    "site": {
+      "col": 14,
+      "file": "margin.ttir",
+      "line": 23
+    },
+    "symbol": "response_jvp"
+  },
+  "pareto": [
+    {
+      "applied": [
+        "R0_0"
+      ],
+      "budget": -33,
+      "cost": 6,
+      "modelled_rel_error": 0,
+      "selected": true
+    }
+  ],
+  "result": {
+    "applied": [
+      "R0_0"
+    ],
+    "cost_after": 6,
+    "cost_before": 39,
+    "modelled_rel_error": 0,
+    "modelled_rel_error_as_written": 9.3034605933395053e-17
+  },
+  "schema": "poseidon-explain/1",
+  "subgraphs": [
+    {
+      "alternatives": [
+        {
+          "approx": true,
+          "approx_note": "series approximation of v1 * (v0 + 1.0) + v1 * (v0 + 1.0) - (v0 * v1 + v0 * v1)",
+          "c": "v1 - -v1",
+          "fpcore": "#s(approx (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) (-.f64 v1 (neg.f64 v1)))",
+          "herbie_error_bits": {
+            "after": 0,
+            "before": 13.555
+          },
+          "id": "R0_0",
+          "kind": "algebraic",
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "part of the cheapest solution that meets the target",
+          "status": "applied",
+          "summary": "Herbie rewrite searched at binary64, series approximation"
+        },
+        {
+          "approx": true,
+          "approx_note": "series approximation of v1 * (v0 + 1.0) + v1 * (v0 + 1.0) - (v0 * v1 + v0 * v1)",
+          "c": "(double)((float)v1 + (float)v1)",
+          "fpcore": "#s(approx (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) (+.f32 v1 v1))",
+          "herbie_error_bits": {
+            "after": 0,
+            "before": 14.727
+          },
+          "id": "R1_0",
+          "kind": "algebraic",
+          "outputs": [
+            0
+          ],
+          "precision": "binary32",
+          "reason": "the selected R0_0 rewrites the same output",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary32, series approximation"
+        },
+        {
+          "c": "(double)((float)v1 * ((float)v0 + 1.0f) + (float)v1 * ((float)v0 + 1.0f) - ((float)v0 * (float)v1 + (float)v0 * (float)v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1,
+                2
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_0",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(0%) + FP32(100%): '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10), '*' (13:10) and '+' (14:10) in float (6 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)((double)((float)v1 * ((float)v0 + 1.0f)) + (double)((float)v1 * ((float)v0 + 1.0f))) - ((float)v0 * (float)v1 + (float)v0 * (float)v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_1",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(20%) + FP32(80%): '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10) and '*' (13:10) in float (5 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)(v1 * (double)((float)v0 + 1.0f) + v1 * (double)((float)v0 + 1.0f)) - ((float)v0 * (float)v1 + (float)v0 * (float)v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_2",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(40%) + FP32(60%): '-' (17:10), '+' (16:10), '*' (15:10) and '+' (12:10) in float (4 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)(v1 * (v0 + 1.0) + v1 * (v0 + 1.0)) - ((float)v0 * (float)v1 + (float)v0 * (float)v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_3",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(50%) + FP32(50%): '-' (17:10), '+' (16:10) and '*' (15:10) in float (3 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)(v1 * (v0 + 1.0) + v1 * (v0 + 1.0)) - ((float)(v0 * v1) + (float)(v0 * v1)))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_4",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(70%) + FP32(30%): '-' (17:10) and '+' (16:10) in float (2 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)(v1 * (v0 + 1.0) + v1 * (v0 + 1.0)) - (float)(v0 * v1 + v0 * v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_5",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(90%) + FP32(10%): '-' (17:10) in float (1 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1,
+                2
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_6",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(0%) + Expansion2(100%): '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10), '*' (13:10) and '+' (14:10) in a 2-component float expansion (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_7",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(20%) + Expansion2(80%): '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10) and '*' (13:10) in a 2-component float expansion (5 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_8",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(40%) + Expansion2(60%): '-' (17:10), '+' (16:10), '*' (15:10) and '+' (12:10) in a 2-component float expansion (4 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_9",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(50%) + Expansion2(50%): '-' (17:10), '+' (16:10) and '*' (15:10) in a 2-component float expansion (3 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_10",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(70%) + Expansion2(30%): '-' (17:10) and '+' (16:10) in a 2-component float expansion (2 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "id": "PT0_11",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(90%) + Expansion2(10%): '-' (17:10) in a 2-component float expansion (1 of 6 operations)"
+        },
+        {
+          "c": "(double)((float)v1 * ((float)v0 + 1.0f) + (float)v1 * ((float)v0 + 1.0f) - ((float)v0 * (float)v1 + (float)v0 * (float)v1))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1,
+                2
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_12",
+          "kind": "precision",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(0%) + FP32(100%): '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10), '*' (13:10) and '+' (14:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0,
+                1
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_13",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(20%) + FP32(80%): '+' (14:10) in a 2-component float expansion and '-' (17:10), '+' (16:10), '*' (15:10), '+' (12:10) and '*' (13:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                1,
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_14",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(40%) + FP32(60%): '*' (13:10) and '+' (14:10) in a 2-component float expansion and '-' (17:10), '+' (16:10), '*' (15:10) and '+' (12:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                0,
+                1,
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_15",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(50%) + FP32(50%): '+' (12:10), '*' (13:10) and '+' (14:10) in a 2-component float expansion and '-' (17:10), '+' (16:10) and '*' (15:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                0,
+                1,
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_16",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(70%) + FP32(30%): '*' (15:10), '+' (12:10), '*' (13:10) and '+' (14:10) in a 2-component float expansion and '-' (17:10) and '+' (16:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                4,
+                3,
+                0,
+                1,
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_17",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All Expansion2(90%) + FP32(10%): '+' (16:10), '*' (15:10), '+' (12:10), '*' (13:10) and '+' (14:10) in a 2-component float expansion and '-' (17:10) in float (6 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                1
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3,
+                0
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_18",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(20%) + Expansion2(20%) + FP32(60%): '*' (13:10) in a 2-component float expansion and '-' (17:10), '+' (16:10), '*' (15:10) and '+' (12:10) in float (5 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                0,
+                1
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_19",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(20%) + Expansion2(40%) + FP32(40%): '+' (12:10) and '*' (13:10) in a 2-component float expansion and '-' (17:10), '+' (16:10) and '*' (15:10) in float (5 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                0,
+                1
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_20",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(20%) + Expansion2(60%) + FP32(20%): '*' (15:10), '+' (12:10) and '*' (13:10) in a 2-component float expansion and '-' (17:10) and '+' (16:10) in float (5 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                0
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4,
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_21",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(40%) + Expansion2(20%) + FP32(40%): '+' (12:10) in a 2-component float expansion and '-' (17:10), '+' (16:10) and '*' (15:10) in float (4 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                0
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_22",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(40%) + Expansion2(40%) + FP32(20%): '*' (15:10) and '+' (12:10) in a 2-component float expansion and '-' (17:10) and '+' (16:10) in float (4 of 6 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                5,
+                4
+              ],
+              "to": "FP32"
+            }
+          ],
+          "id": "PT0_23",
+          "kind": "expansion",
+          "outputs": [
+            0
+          ],
+          "reason": "not on the Pareto frontier of the site",
+          "status": "rejected",
+          "summary": "All FP64(60%) + Expansion2(20%) + FP32(20%): '*' (15:10) in a 2-component float expansion and '-' (17:10) and '+' (16:10) in float (3 of 6 operations)"
+        }
+      ],
+      "cost": 39,
+      "executions": 1024,
+      "herbie": [
+        {
+          "candidates": 1,
+          "error_bits": 13.555,
+          "id": "R0",
+          "precision": "binary64",
+          "status": "imp-start"
+        },
+        {
+          "candidates": 1,
+          "error_bits": 14.727,
+          "id": "R1",
+          "precision": "binary32",
+          "status": "imp-start"
+        }
+      ],
+      "id": "S0",
+      "inputs": [
+        {
+          "max": 2415919104,
+          "min": 1.125,
+          "type": "double",
+          "var": "v0"
+        },
+        {
+          "max": 0.75,
+          "min": 0.25,
+          "type": "double",
+          "var": "v1"
+        }
+      ],
+      "kind": "subgraph",
+      "loc": {
+        "col": 10,
+        "file": "margin.ttir",
+        "line": 17
+      },
+      "ops": [
+        {
+          "executions": 1024,
+          "gradient": 1008,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 12
+          },
+          "max": 2415919105,
+          "min": 2.125,
+          "opcode": "+",
+          "sensitivity": 143574622002,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": 2048,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 13
+          },
+          "max": 1207959552.5,
+          "min": 0.53125,
+          "opcode": "*",
+          "sensitivity": 143574622002,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": 1024,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 14
+          },
+          "max": 2415919105,
+          "min": 1.0625,
+          "opcode": "+",
+          "sensitivity": 143574622002,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": -2048,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 15
+          },
+          "max": 1207959552,
+          "min": 0.28125,
+          "opcode": "*",
+          "sensitivity": 143574620994,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": -1024,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 16
+          },
+          "max": 2415919104,
+          "min": 0.5625,
+          "opcode": "+",
+          "sensitivity": 143574620994,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": 1024,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 17
+          },
+          "max": 1.5,
+          "min": 0.5,
+          "opcode": "-",
+          "sensitivity": 1008,
+          "type": "double"
+        }
+      ],
+      "original": {
+        "c": "v1 * (v0 + 1.0) + v1 * (v0 + 1.0) - (v0 * v1 + v0 * v1)",
+        "fpcore": "(- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1)))"
+      },
+      "outputs": [
+        {
+          "c": "v1 * (v0 + 1.0) + v1 * (v0 + 1.0) - (v0 * v1 + v0 * v1)",
+          "fpcore": "(- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1)))",
+          "inputs": [
+            0,
+            1
+          ],
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 17
+          },
+          "ops": [
+            0,
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "type": "double"
+        }
+      ]
+    }
+  ],
+  "target": {
+    "cost_model": "/mnt/vimarsh6739/hiord/Enzyme-ttir-llvm-profiles/enzyme/Poseidon/cost_models/cm_sm_120_RTX5090.csv",
+    "from_cache": true,
+    "selector": "dp",
+    "tau": 0.001,
+    "tau_from": "flag"
+  }
+}

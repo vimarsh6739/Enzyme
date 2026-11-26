@@ -1,0 +1,2 @@
+Applying solution for (- (* (+ v0 1) (+ v0 1)) (* v0 v0)) --(5)-> (binary32->binary64 #s(approx (+ (* -2 (neg v0)) 1) #s(literal 1 binary32)))
+Applying solution for (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) --(0)-> #s(approx (- (+ (* v1 (+ v0 1)) (* v1 (+ v0 1))) (+ (* v0 v1) (* v0 v1))) (-.f64 v1 (neg.f64 v1)))

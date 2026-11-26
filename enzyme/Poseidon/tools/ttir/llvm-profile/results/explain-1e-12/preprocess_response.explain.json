@@ -1,0 +1,730 @@
+{
+  "function": {
+    "ir": "preprocess_response",
+    "loc": {
+      "col": 0,
+      "file": "margin.ttir",
+      "line": 2
+    },
+    "name": "response",
+    "site": {
+      "col": 14,
+      "file": "margin.ttir",
+      "line": 22
+    },
+    "symbol": "response"
+  },
+  "pareto": [
+    {
+      "applied": [
+        "R0_5"
+      ],
+      "budget": -26,
+      "cost": 0,
+      "modelled_rel_error": 7.1824019268308809e-07
+    },
+    {
+      "applied": [
+        "R0_4"
+      ],
+      "budget": -19,
+      "cost": 7,
+      "modelled_rel_error": 3.1044085980335218e-16,
+      "selected": true
+    },
+    {
+      "applied": [
+        "R0_0"
+      ],
+      "budget": -13,
+      "cost": 13,
+      "modelled_rel_error": 0
+    }
+  ],
+  "result": {
+    "applied": [
+      "R0_4"
+    ],
+    "cost_after": 7,
+    "cost_before": 26,
+    "modelled_rel_error": 3.1044085980335218e-16,
+    "modelled_rel_error_as_written": 2.9278060003714246e-14
+  },
+  "schema": "poseidon-explain/1",
+  "subgraphs": [
+    {
+      "alternatives": [
+        {
+          "approx": false,
+          "c": "1.0 - (-v0 - v0)",
+          "cost_delta": -13,
+          "fpcore": "(-.f64 #s(literal 1 binary64) (-.f64 (neg.f64 v0) v0))",
+          "herbie_error_bits": {
+            "after": 0,
+            "before": 12.906999999999996
+          },
+          "id": "R0_0",
+          "kind": "algebraic",
+          "modelled_error": 0,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "on the Pareto frontier; -poseidon-apply-rewrites=R0_0 applies it",
+          "status": "pareto",
+          "summary": "Herbie rewrite searched at binary64"
+        },
+        {
+          "approx": false,
+          "c": "v0 - (-1.0 - v0)",
+          "cost_delta": -13,
+          "fpcore": "(-.f64 v0 (-.f64 #s(literal -1 binary64) v0))",
+          "herbie_error_bits": {
+            "after": 0.014000000000002899,
+            "before": 12.906999999999996
+          },
+          "id": "R0_1",
+          "kind": "algebraic",
+          "modelled_error": 0,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "the selected R0_4 rewrites the same output",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary64"
+        },
+        {
+          "approx": false,
+          "c": "v0 - (double)(-1.0f + (float)-v0)",
+          "cost_delta": -8,
+          "fpcore": "(-.f64 v0 (binary32->binary64 (+.f32 #s(literal -1 binary32) (binary64->binary32 (neg.f64 v0)))))",
+          "herbie_error_bits": {
+            "after": 25.649000000000001,
+            "before": 12.906999999999996
+          },
+          "id": "R0_2",
+          "kind": "algebraic",
+          "modelled_error": 7.5968256782117888e-15,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "dominated by R0_4, which costs no more and is at least as accurate",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary64"
+        },
+        {
+          "approx": false,
+          "c": "(double)fmaf(-2.0f, (float)-v0, 1.0f)",
+          "cost_delta": -14,
+          "fpcore": "(binary32->binary64 (fma.f32 #s(literal -2 binary32) (binary64->binary32 (neg.f64 v0)) #s(literal 1 binary32)))",
+          "herbie_error_bits": {
+            "after": 26.619,
+            "before": 12.906999999999996
+          },
+          "id": "R0_3",
+          "kind": "algebraic",
+          "modelled_error": 1.5182174982638293e-14,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "dominated by R0_4, which costs no more and is at least as accurate",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary64"
+        },
+        {
+          "approx": true,
+          "approx_note": "series approximation of (v0 + 1.0) * (v0 + 1.0) - v0 * v0",
+          "c": "v0 - -v0",
+          "cost_delta": -19,
+          "fpcore": "#s(approx (- (* (+ v0 1) (+ v0 1)) (* v0 v0)) (-.f64 v0 (neg.f64 v0)))",
+          "herbie_error_bits": {
+            "after": 35.840000000000003,
+            "before": 12.906999999999996
+          },
+          "id": "R0_4",
+          "kind": "algebraic",
+          "modelled_error": 3.1044085980335218e-16,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "part of the cheapest solution that meets the target",
+          "status": "applied",
+          "summary": "Herbie rewrite searched at binary64, series approximation"
+        },
+        {
+          "approx": true,
+          "approx_note": "series approximation of -2.0 * -v0 + 1.0",
+          "c": "(double)1.0f",
+          "cost_delta": -26,
+          "fpcore": "(binary32->binary64 #s(approx (+ (* -2 (neg v0)) 1) #s(literal 1 binary32)))",
+          "herbie_error_bits": {
+            "after": 55.758000000000003,
+            "before": 12.906999999999996
+          },
+          "id": "R0_5",
+          "kind": "algebraic",
+          "modelled_error": 7.1824019268308809e-07,
+          "outputs": [
+            0
+          ],
+          "precision": "binary64",
+          "reason": "modelled error 7.2e-07 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary64, series approximation"
+        },
+        {
+          "approx": false,
+          "c": "(double)(1.0f + ((float)v0 + (float)v0))",
+          "cost_delta": -14,
+          "fpcore": "(+.f32 #s(literal 1 binary32) (+.f32 v0 v0))",
+          "herbie_error_bits": {
+            "after": 0,
+            "before": 14.058999999999997
+          },
+          "id": "R1_0",
+          "kind": "algebraic",
+          "modelled_error": 1.5182174982638293e-14,
+          "outputs": [
+            0
+          ],
+          "precision": "binary32",
+          "reason": "dominated by R0_4, which costs no more and is at least as accurate",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary32"
+        },
+        {
+          "approx": true,
+          "approx_note": "series approximation of (v0 + 1.0) * (v0 + 1.0) - v0 * v0",
+          "c": "(double)((float)v0 + (float)v0)",
+          "cost_delta": -14,
+          "fpcore": "#s(approx (- (* (+ v0 1) (+ v0 1)) (* v0 v0)) (+.f32 v0 v0))",
+          "herbie_error_bits": {
+            "after": 8.1499999999999986,
+            "before": 14.058999999999997
+          },
+          "id": "R1_1",
+          "kind": "algebraic",
+          "modelled_error": 1.5182937567900138e-14,
+          "outputs": [
+            0
+          ],
+          "precision": "binary32",
+          "reason": "dominated by R0_4, which costs no more and is at least as accurate",
+          "status": "rejected",
+          "summary": "Herbie rewrite searched at binary32, series approximation"
+        },
+        {
+          "c": "(double)(((float)v0 + 1.0f) * ((float)v0 + 1.0f) - (float)v0 * (float)v0)",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1,
+                0
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": -14,
+          "id": "PT0_0",
+          "kind": "precision",
+          "modelled_error": 7.1820690375690315e-07,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 7.2e-07 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(0%) + FP32(100%): '-' (7:10), '*' (6:10), '*' (5:10) and '+' (4:10) in float (4 of 4 operations)"
+        },
+        {
+          "c": "(double)((float)(v0 + 1.0) * (float)(v0 + 1.0) - (float)v0 * (float)v0)",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": -1,
+          "id": "PT0_1",
+          "kind": "precision",
+          "modelled_error": 1.8174687070758015e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.8e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(30%) + FP32(70%): '-' (7:10), '*' (6:10) and '*' (5:10) in float (3 of 4 operations)"
+        },
+        {
+          "c": "(double)((float)((v0 + 1.0) * (v0 + 1.0)) - (float)v0 * (float)v0)",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 5,
+          "id": "PT0_2",
+          "kind": "precision",
+          "modelled_error": 2.2477387554200549e-05,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 2.2e-05 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(50%) + FP32(50%): '-' (7:10) and '*' (6:10) in float (2 of 4 operations)"
+        },
+        {
+          "c": "(double)((float)((v0 + 1.0) * (v0 + 1.0)) - (float)(v0 * v0))",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 11,
+          "id": "PT0_3",
+          "kind": "precision",
+          "modelled_error": 1.386224184176325e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.4e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(80%) + FP32(20%): '-' (7:10) in float (1 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1,
+                0
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "cost_delta": 23,
+          "id": "PT0_4",
+          "kind": "expansion",
+          "modelled_error": 9.0918750371040927e-13,
+          "outputs": [
+            0
+          ],
+          "reason": "neither cheaper nor more accurate than as written",
+          "status": "rejected",
+          "summary": "All FP64(0%) + Expansion2(100%): '-' (7:10), '*' (6:10), '*' (5:10) and '+' (4:10) in a 2-component float expansion (4 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "cost_delta": 51,
+          "id": "PT0_5",
+          "kind": "expansion",
+          "modelled_error": 9.253607413393439e-13,
+          "outputs": [
+            0
+          ],
+          "reason": "neither cheaper nor more accurate than as written",
+          "status": "rejected",
+          "summary": "All FP64(30%) + Expansion2(70%): '-' (7:10), '*' (6:10) and '*' (5:10) in a 2-component float expansion (3 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "cost_delta": 57,
+          "id": "PT0_6",
+          "kind": "expansion",
+          "modelled_error": 9.082561704142659e-13,
+          "outputs": [
+            0
+          ],
+          "reason": "neither cheaper nor more accurate than as written",
+          "status": "rejected",
+          "summary": "All FP64(50%) + Expansion2(50%): '-' (7:10) and '*' (6:10) in a 2-component float expansion (2 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "Expansion2"
+            }
+          ],
+          "cost_delta": 62,
+          "id": "PT0_7",
+          "kind": "expansion",
+          "modelled_error": 3.2160304396112135e-13,
+          "outputs": [
+            0
+          ],
+          "reason": "neither cheaper nor more accurate than as written",
+          "status": "rejected",
+          "summary": "All FP64(80%) + Expansion2(20%): '-' (7:10) in a 2-component float expansion (1 of 4 operations)"
+        },
+        {
+          "c": "(double)(((float)v0 + 1.0f) * ((float)v0 + 1.0f) - (float)v0 * (float)v0)",
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1,
+                0
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": -14,
+          "id": "PT0_8",
+          "kind": "precision",
+          "modelled_error": 7.1820690375690315e-07,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 7.2e-07 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All Expansion2(0%) + FP32(100%): '-' (7:10), '*' (6:10), '*' (5:10) and '+' (4:10) in float (4 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                0
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2,
+                1
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 6,
+          "id": "PT0_9",
+          "kind": "expansion",
+          "modelled_error": 1.8174687070758015e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.8e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All Expansion2(30%) + FP32(70%): '+' (4:10) in a 2-component float expansion and '-' (7:10), '*' (6:10) and '*' (5:10) in float (4 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                1,
+                0
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 7,
+          "id": "PT0_10",
+          "kind": "expansion",
+          "modelled_error": 2.2477387554200549e-05,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 2.2e-05 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All Expansion2(50%) + FP32(50%): '*' (5:10) and '+' (4:10) in a 2-component float expansion and '-' (7:10) and '*' (6:10) in float (4 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                2,
+                1,
+                0
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 8,
+          "id": "PT0_11",
+          "kind": "expansion",
+          "modelled_error": 1.386224184176325e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.4e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All Expansion2(80%) + FP32(20%): '*' (6:10), '*' (5:10) and '+' (4:10) in a 2-component float expansion and '-' (7:10) in float (4 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                1
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3,
+                2
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 18,
+          "id": "PT0_12",
+          "kind": "expansion",
+          "modelled_error": 2.2477387554200549e-05,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 2.2e-05 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(40%) + Expansion2(20%) + FP32(40%): '*' (5:10) in a 2-component float expansion and '-' (7:10) and '*' (6:10) in float (3 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                2,
+                1
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 37,
+          "id": "PT0_13",
+          "kind": "expansion",
+          "modelled_error": 1.386224184176325e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.4e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(40%) + Expansion2(40%) + FP32(20%): '*' (6:10) and '*' (5:10) in a 2-component float expansion and '-' (7:10) in float (3 of 4 operations)"
+        },
+        {
+          "changes": [
+            {
+              "from": "FP64",
+              "ops": [
+                2
+              ],
+              "to": "Expansion2"
+            },
+            {
+              "from": "FP64",
+              "ops": [
+                3
+              ],
+              "to": "FP32"
+            }
+          ],
+          "cost_delta": 24,
+          "id": "PT0_14",
+          "kind": "expansion",
+          "modelled_error": 1.386224184176325e-06,
+          "outputs": [
+            0
+          ],
+          "reason": "modelled error 1.4e-06 is above the target 1e-12",
+          "status": "rejected",
+          "summary": "All FP64(60%) + Expansion2(20%) + FP32(20%): '*' (6:10) in a 2-component float expansion and '-' (7:10) in float (2 of 4 operations)"
+        }
+      ],
+      "cost": 26,
+      "executions": 1024,
+      "herbie": [
+        {
+          "candidates": 6,
+          "error_bits": 12.906999999999996,
+          "id": "R0",
+          "precision": "binary64",
+          "status": "imp-start"
+        },
+        {
+          "candidates": 2,
+          "error_bits": 14.058999999999997,
+          "id": "R1",
+          "precision": "binary32",
+          "status": "imp-start"
+        }
+      ],
+      "id": "S0",
+      "inputs": [
+        {
+          "max": 2415919104,
+          "min": 1.125,
+          "type": "double",
+          "var": "v0"
+        }
+      ],
+      "kind": "subgraph",
+      "loc": {
+        "col": 10,
+        "file": "margin.ttir",
+        "line": 7
+      },
+      "ops": [
+        {
+          "executions": 1024,
+          "gradient": 309237647288,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 4
+          },
+          "max": 2415919105,
+          "min": 2.125,
+          "opcode": "+",
+          "sensitivity": 4.9806209060863318e+20,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": 309237.64728799998,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 5
+          },
+          "max": 5.836665121904001e+18,
+          "min": 4.515625,
+          "opcode": "*",
+          "sensitivity": 2.4903104530431659e+20,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": -309237.64728799998,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 6
+          },
+          "max": 5.8366651170721628e+18,
+          "min": 1.265625,
+          "opcode": "*",
+          "sensitivity": 2.4903104499507895e+20,
+          "type": "double"
+        },
+        {
+          "executions": 1024,
+          "gradient": 309237.64728799998,
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 7
+          },
+          "max": 4831838208,
+          "min": 3.25,
+          "opcode": "-",
+          "sensitivity": 309237646104,
+          "type": "double"
+        }
+      ],
+      "original": {
+        "c": "(v0 + 1.0) * (v0 + 1.0) - v0 * v0",
+        "fpcore": "(- (* (+ v0 1) (+ v0 1)) (* v0 v0))"
+      },
+      "outputs": [
+        {
+          "c": "(v0 + 1.0) * (v0 + 1.0) - v0 * v0",
+          "fpcore": "(- (* (+ v0 1) (+ v0 1)) (* v0 v0))",
+          "inputs": [
+            0
+          ],
+          "loc": {
+            "col": 10,
+            "file": "margin.ttir",
+            "line": 7
+          },
+          "ops": [
+            0,
+            1,
+            2,
+            3
+          ],
+          "type": "double"
+        }
+      ]
+    }
+  ],
+  "target": {
+    "cost_model": "/mnt/vimarsh6739/hiord/Enzyme-ttir-llvm-profiles/enzyme/Poseidon/cost_models/cm_sm_120_RTX5090.csv",
+    "selector": "dp",
+    "tau": 9.9999999999999998e-13,
+    "tau_from": "flag"
+  }
+}
