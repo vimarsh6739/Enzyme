@@ -35,6 +35,8 @@ def PoseidonRewritePass : Pass<"poseidon-rewrite"> {
            "running Herbie">,
     Option<"seed", "seed", "uint64_t", /*default=*/"0",
            "Seed of the random choice among Herbie's candidates">,
+    ListOption<"excludeOps", "exclude-ops", "std::string",
+               "Skip candidates that emit a listed MLIR math or arithmetic op">,
     Option<"leastError", "least-error", "bool", /*default=*/"false",
            "Pick the buildable candidate with the lowest estimated error, "
            "keeping the original unless the estimate strictly improves">,

@@ -7,6 +7,11 @@
 // RUN:   %s -o /dev/null 2>&1 | FileCheck %s --check-prefix=MISSING
 
 // RUN: %poseidon_mlir_opt %s --poseidon-rewrite="least-error herbie-results=%S/Inputs/herbie_results.json" | FileCheck %s --check-prefix=LEAST
+// RUN: %poseidon_mlir_opt %s --poseidon-rewrite="least-error exclude-ops=math.log1p herbie-results=%S/Inputs/herbie_results.json" | FileCheck %s --check-prefix=EXCLUDE
+// EXCLUDE-LABEL: func.func @log_one_plus
+// EXCLUDE: arith.addf
+// EXCLUDE-NEXT: math.log %
+// EXCLUDE-NEXT: return
 // LEAST-LABEL: func.func @expm1_over
 // LEAST: math.expm1
 // LEAST-NEXT: arith.divf

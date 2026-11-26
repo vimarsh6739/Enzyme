@@ -133,11 +133,12 @@ struct KnownOp {
 // The table, looked up by an op's name in one context and by FPCore operator.
 class ChainOpTable {
 public:
-  explicit ChainOpTable(MLIRContext *context) {
+  ChainOpTable(MLIRContext *context, ArrayRef<std::string> excludeOps) {
     for (const ChainOp &op : chainOps) {
       OperationName name(op.mlir, context);
       byName.try_emplace(name, &op);
-      byFPCore.try_emplace(op.fpcore, name, &op);
+      if (!llvm::is_contained(excludeOps, op.mlir))
+        byFPCore.try_emplace(op.fpcore, name, &op);
     }
   }
 
@@ -663,7 +664,7 @@ struct PoseidonRewrite
 
   LogicalResult rewriteFunction(FunctionOpInterface func) {
     // The chain ops, as this function's context names them.
-    ChainOpTable table(&getContext());
+    ChainOpTable table(&getContext(), excludeOps);
     SmallVector<Chain> chains;
     func.walk([&](Block *block) {
       for (Chain &chain : findChains(*block, table))
