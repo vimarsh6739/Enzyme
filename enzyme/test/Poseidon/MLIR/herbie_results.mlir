@@ -6,6 +6,14 @@
 // RUN:   --poseidon-rewrite="herbie-results=%S/Inputs/no_such_file.json" \
 // RUN:   %s -o /dev/null 2>&1 | FileCheck %s --check-prefix=MISSING
 
+// RUN: %poseidon_mlir_opt %s --poseidon-rewrite="least-error herbie-results=%S/Inputs/herbie_results.json" | FileCheck %s --check-prefix=LEAST
+// LEAST-LABEL: func.func @expm1_over
+// LEAST: math.expm1
+// LEAST-NEXT: arith.divf
+// LEAST-LABEL: func.func @nothing
+// LEAST: math.sin
+// LEAST-NEXT: math.cos
+
 // Herbie's answers are read from a results.json in the format a real run
 // writes, and matched to each core by its :name. The seed is one that picks
 // the candidates checked here; how candidates are built is tested in

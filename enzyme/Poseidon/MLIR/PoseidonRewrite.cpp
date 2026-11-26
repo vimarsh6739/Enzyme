@@ -606,6 +606,7 @@ struct PoseidonRewrite
     ExprBuilder builder(table, cast<RankedTensorType>(output.getType()),
                         inputs);
     SmallVector<poseidon::HerbieExpr> buildable;
+    double bestError = answer.initialErrorBits;
     for (const poseidon::HerbieCandidate &candidate : answer.candidates) {
       // Why the candidate cannot be built, when it cannot: unparseable, or no
       // ops for it.
@@ -619,15 +620,23 @@ struct PoseidonRewrite
                         << ": " << candidate.expr
                         << (canBuild ? "" : " [cannot build: " + why + "]")
                         << "\n");
-      if (canBuild)
-        buildable.push_back(std::move(*expr));
+      if (!canBuild)
+        continue;
+      if (leastError) {
+        // An unknown estimate (NaN) cannot establish an improvement.
+        if (!(candidate.errorBits < bestError))
+          continue;
+        bestError = candidate.errorBits;
+        buildable.clear();
+      }
+      buildable.push_back(std::move(*expr));
     }
     if (buildable.empty()) {
       LLVM_DEBUG(DBGS() << "  no candidate can be built; left as is\n");
       return std::nullopt;
     }
 
-    // Not the best candidate: any one that can be built. The draw depends on
+    // By default draw from all buildable candidates. The draw depends on
     // the seed and the core's name only, so a run makes the same choices
     // whatever order the functions are processed in. std::mt19937_64's
     // output is fixed by the C++ standard, unlike the std distributions, so

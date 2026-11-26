@@ -33,6 +33,9 @@ def PoseidonRewritePass : Pass<"poseidon-rewrite"> {
            "running Herbie">,
     Option<"seed", "seed", "uint64_t", /*default=*/"0",
            "Seed of the random choice among Herbie's candidates">,
+    Option<"leastError", "least-error", "bool", /*default=*/"false",
+           "Pick the buildable candidate with the lowest estimated error, "
+           "keeping the original unless the estimate strictly improves">,
     Option<"runHerbie", "run-herbie", "bool", /*default=*/"false",
            "Run Herbie on each function's chains (ignored with "
            "herbie-results)">,
