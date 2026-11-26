@@ -652,6 +652,8 @@ struct PoseidonRewrite
     // A bare --poseidon-rewrite runs on the module. A nested pipeline can
     // also select just tt.func or func.func.
     WalkResult result = getOperation()->walk([&](FunctionOpInterface func) {
+      if (!onlyFunction.empty() && func.getName() != onlyFunction.getValue())
+        return WalkResult::advance();
       return failed(rewriteFunction(func)) ? WalkResult::interrupt()
                                            : WalkResult::advance();
     });

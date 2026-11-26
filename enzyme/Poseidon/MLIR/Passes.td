@@ -25,6 +25,8 @@ def PoseidonRewritePass : Pass<"poseidon-rewrite"> {
   }];
   let dependentDialects = ["arith::ArithDialect", "math::MathDialect"];
   let options = [
+    Option<"onlyFunction", "only-function", "std::string",
+           /*default=*/"\"\"", "Restrict rewriting to this function name">,
     Option<"remarkFPCore", "remark-fpcore", "bool", /*default=*/"false",
            "Emit a remark on each chain output with its FPCore expression">,
     Option<"herbieResults", "herbie-results", "std::string",
