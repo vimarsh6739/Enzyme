@@ -31,7 +31,7 @@ device_object instrumented
 POSEIDON_PROFILE_DIR="$PWD/profiles" ./profile
 "${cuda[@]}" -dc "$src/sample.cu" -o sample.o
 
-for variant in baseline 1e-12 1e-3; do
+for variant in baseline 1e-17 1e-12 1e-3; do
     if [[ "$variant" != baseline ]]; then
         mkdir -p "explain-$variant"
         "${compile[@]}" -mllvm "-poseidon-profile-use=$PWD/profiles" \

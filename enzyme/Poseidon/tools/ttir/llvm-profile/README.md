@@ -8,14 +8,19 @@ Both stages see the same RTX 5090, calibration inputs and target cost model.
 | GPU kernel | Primal chosen by solver | Estimated relative error | Worst observed relative error | Exact JVPs |
 |---|---|---:|---:|---:|
 | Untuned | (x + 1)² − x² | — | 2.71 × 10⁻⁹ | 32/32 |
+| Target 10⁻¹⁷ | 1 − (−x − x) | 0 | 0 | 32/32 |
 | Target 10⁻¹² | 2x | 3.10 × 10⁻¹⁶ | 26.7% | 32/32 |
 | Target 10⁻³ | 1 | 7.18 × 10⁻⁷ | ≈100% | 32/32 |
 
-For x = 1.375, the GPU returned 3.75, 2.75 and 1.0 respectively. Both tuned
+For x = 1.375, the GPU returned 3.75, 2.75 and 1.0 respectively. All tuned
 JVP kernels emitted dx + dx. The solver models error over the profiled
 workload. Its estimated error and the worst error on independent points are
 different statistics. Mean observed primal relative errors were 1.85% and
-98.15% at the two targets. This is a reason to validate value and gradient
+98.15% at targets 10⁻¹² and 10⁻³, respectively. At 10⁻¹⁷, the solver
+selected the exact real-algebra expression already on its frontier. All 32
+CUDA outputs then matched the reference. Running `z3 margin.smt2` checks
+that this candidate and the selected JVP preserve the real-arithmetic
+identities for arbitrary inputs. This is a reason to validate value and gradient
 outputs individually before accepting a candidate.
 
 ![Held-out margin error on the RTX 5090](results/margin-error.png)
@@ -54,7 +59,7 @@ sets their target CPU to match the sm_120 cost model. The four-argument
 TTIR entry acquires two extra scratch pointers in Triton's lowering.
 
 `run.sh` links the instrumented device code against Poseidon's CUDA runtime,
-then uses the collected profiles for two independent solves. A native CUDA
+then uses the collected profiles for three solves. A native CUDA
 kernel wrapper registers the device function for launch. The control uses
 Triton's original LLVM and the same launch wrapper. Every reported value
 comes from copying both CUDA outputs back to the host. The independent

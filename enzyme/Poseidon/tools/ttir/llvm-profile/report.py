@@ -31,9 +31,9 @@ def main():
             raise ValueError(f"{fn}: unexpected probe count {records} or SumGrad {grad}")
 
     fig, ax = plt.subplots(figsize=(7.2, 3.7), layout="constrained")
-    colors = ("#414b5a", "#2675a2", "#b84a2b")
-    markers = ("o", "s", "^")
-    variants = ("baseline", "1e-12", "1e-3")
+    colors = ("#414b5a", "#4c9269", "#2675a2", "#b84a2b")
+    markers = ("o", "D", "s", "^")
+    variants = ("baseline", "1e-17", "1e-12", "1e-3")
     with (root / "summary.csv").open("w", newline="") as output:
         writer = csv.writer(output, lineterminator="\n")
         writer.writerow(["variant", "output", "samples", "formula_exact_count", "max_relative_error",
