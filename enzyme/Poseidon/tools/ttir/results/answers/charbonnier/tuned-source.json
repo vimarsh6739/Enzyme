@@ -1,0 +1,107 @@
+{
+  "branch": "release",
+  "commit": "2.3",
+  "date": 1795685245,
+  "flags": [
+    "rules:arithmetic",
+    "rules:polynomials",
+    "rules:fractions",
+    "rules:exponents",
+    "rules:trigonometry",
+    "rules:hyperbolic",
+    "rules:special",
+    "generate:rr",
+    "generate:taylor",
+    "generate:evaluate",
+    "reduce:dag-cost",
+    "reduce:regimes",
+    "reduce:branch-expressions",
+    "setup:search",
+    "setup:preprocess"
+  ],
+  "iterations": 6,
+  "points": 1024,
+  "seed": "239778888",
+  "tests": [
+    {
+      "bits": 32,
+      "conversions": [],
+      "cost-accuracy": [
+        [
+          1.15,
+          13.8
+        ],
+        [
+          2.45,
+          0.06,
+          "(if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (/.f32 (*.f32 x0 x0) (+.f32 #s(literal 1 binary32) (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 x0 x0)))))))"
+        ],
+        [
+          [
+            3.675,
+            0.102,
+            "(if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 x0 x0))) #s(literal 1 binary32)) #s(literal 7516193/2147483648 binary32)) (/.f32 (*.f32 x0 x0) #s(approx (- (sqrt (+ (* x0 x0) 1)) -1) (fma.f32 #s(literal 1/2 binary32) (*.f32 x0 x0) #s(literal 2 binary32)))) (-.f32 (sqrt.f32 (fma.f32 x0 x0 #s(literal 1 binary32))) #s(literal 1 binary32)))))"
+          ],
+          [
+            4.05,
+            0.103,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 x0 x0))) #s(literal 1 binary32)) #s(literal 7516193/2147483648 binary32)) #s(approx (- (sqrt (+ 1 (* x0 x0))) 1) (*.f32 (*.f32 x0 x0) (fma.f32 #s(literal -1/8 binary32) (*.f32 x0 x0) #s(literal 1/2 binary32)))) (-.f32 (sqrt.f32 (fma.f32 x0 x0 #s(literal 1 binary32))) #s(literal 1 binary32))))))"
+          ],
+          [
+            3.75,
+            0.247,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 x0 x0))) #s(literal 1 binary32)) #s(literal 5153961/34359738368 binary32)) (/.f32 x0 (/.f32 #s(approx (- (sqrt (+ (* x0 x0) 1)) -1) #s(literal 2 binary32)) x0)) (-.f32 (sqrt.f32 (fma.f32 x0 x0 #s(literal 1 binary32))) #s(literal 1 binary32))))))"
+          ],
+          [
+            4.225,
+            0.973,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 (fabs.f32 x0) (fabs.f32 x0)))) #s(literal 1 binary32)) #s(literal 4404019/4194304 binary32)) (/.f32 (fabs.f32 x0) (/.f32 #s(approx (- (sqrt (+ (* (fabs.f32 x0) (fabs.f32 x0)) 1)) -1) #s(literal 2 binary32)) (fabs.f32 x0))) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) (*.f32 (fabs.f32 x0) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) (fabs.f32 x0)))))))))"
+          ],
+          [
+            4.0,
+            0.973,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 (fabs.f32 x0) (fabs.f32 x0)))) #s(literal 1 binary32)) #s(literal 4404019/4194304 binary32)) (/.f32 (fabs.f32 x0) (/.f32 #s(approx (- (sqrt (+ (* (fabs.f32 x0) (fabs.f32 x0)) 1)) -1) #s(literal 2 binary32)) (fabs.f32 x0))) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) #s(approx (* (fabs.f32 x0) (- 1 (/ 1 (fabs.f32 x0)))) (-.f32 (fabs.f32 x0) #s(literal 1 binary32))))))))"
+          ],
+          [
+            3.325,
+            0.972,
+            "(if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 (fabs.f32 x0) (fabs.f32 x0)))) #s(literal 1 binary32)) #s(literal 4404019/4194304 binary32)) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) (*.f32 #s(literal 1/2 binary32) (*.f32 (fabs.f32 x0) (fabs.f32 x0)))) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) #s(approx (* (fabs.f32 x0) (- 1 (/ 1 (fabs.f32 x0)))) (-.f32 (fabs.f32 x0) #s(literal 1 binary32)))))))"
+          ],
+          [
+            3.375,
+            1.634,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (if.f32 (<=.f32 (-.f32 (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 (fabs.f32 x0) (fabs.f32 x0)))) #s(literal 1 binary32)) #s(literal 11072963/16777216 binary32)) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) #s(approx (* (fabs.f32 x0) (- 1 (/ 1 (fabs.f32 x0)))) (-.f32 (fabs.f32 x0) #s(approx 1 #s(literal 0 binary32))))) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) #s(approx (* (fabs.f32 x0) (- 1 (/ 1 (fabs.f32 x0)))) (-.f32 (fabs.f32 x0) #s(literal 1 binary32))))))))"
+          ],
+          [
+            1.625,
+            1.887,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) #s(approx (- (sqrt (+ 1 (* (fabs.f32 x0) (fabs.f32 x0)))) 1) #s(approx (* (fabs.f32 x0) (- 1 (/ 1 (fabs.f32 x0)))) (-.f32 (fabs.f32 x0) #s(literal 1 binary32)))))))"
+          ],
+          [
+            1.55,
+            4.253,
+            "(if.f32 (<=.f32 (fabs.f32 x0) #s(literal 1/2048 binary32)) (*.f32 #s(literal 1/2 binary32) (*.f32 x0 x0)) (if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) #s(approx (- (sqrt (+ 1 (* x0 x0))) 1) #s(approx (* x0 (- 1 (/ 1 x0))) #s(literal -1 binary32))))))"
+          ]
+        ]
+      ],
+      "end": 0.0604411656266226,
+      "identifier": "#f",
+      "input": "(- (sqrt (+ 1.0 (* x0 x0))) 1.0)",
+      "link": "0-charbonnier0",
+      "name": "charbonnier/0",
+      "output": "(if.f32 (<=.f32 #s(literal 16777216 binary32) x0) x0 (if.f32 (<=.f32 x0 #s(literal -16777216 binary32)) (*.f32 #s(literal -1 binary32) x0) (/.f32 (*.f32 x0 x0) (+.f32 #s(literal 1 binary32) (sqrt.f32 (+.f32 #s(literal 1 binary32) (*.f32 x0 x0)))))))",
+      "pre": "TRUE",
+      "prec": "binary32",
+      "spec": "(- (sqrt (+ 1 (* x0 x0))) 1)",
+      "start": 13.800289692608779,
+      "status": "imp-start",
+      "target": [],
+      "target-prog": "()",
+      "time": 7828.34228515625,
+      "vars": [
+        "x0"
+      ],
+      "warnings": []
+    }
+  ]
+}

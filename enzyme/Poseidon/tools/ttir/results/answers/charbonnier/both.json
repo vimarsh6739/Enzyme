@@ -1,0 +1,285 @@
+{
+  "branch": "release",
+  "commit": "2.3",
+  "date": 1795685297,
+  "flags": [
+    "rules:arithmetic",
+    "rules:polynomials",
+    "rules:fractions",
+    "rules:exponents",
+    "rules:trigonometry",
+    "rules:hyperbolic",
+    "rules:special",
+    "generate:rr",
+    "generate:taylor",
+    "generate:evaluate",
+    "reduce:dag-cost",
+    "reduce:regimes",
+    "reduce:branch-expressions",
+    "setup:search",
+    "setup:preprocess"
+  ],
+  "iterations": 6,
+  "points": 1024,
+  "seed": "239778888",
+  "tests": [
+    {
+      "bits": 32,
+      "conversions": [],
+      "cost-accuracy": [
+        [
+          0.575,
+          0.003
+        ],
+        [
+          0.5,
+          0,
+          "(fma.f32 x1 x1 #s(literal 1 binary32))"
+        ],
+        [
+          [
+            1.175,
+            1.028,
+            "(if.f32 (<=.f32 (+.f32 (*.f32 x1 x1) #s(literal 1 binary32)) #s(literal 2 binary32)) #s(approx (+ (* x1 x1) 1) #s(literal 1 binary32)) #s(approx (+ (* x1 x1) 1) (*.f32 x1 x1)))"
+          ],
+          [
+            0.125,
+            15.374,
+            "#s(approx (+ (* x1 x1) 1) #s(literal 1 binary32))"
+          ]
+        ]
+      ],
+      "end": 0,
+      "identifier": "#f",
+      "input": "(+ (* x1 x1) 1.0)",
+      "link": "0-jvp0",
+      "name": "jvp/0",
+      "output": "(fma.f32 x1 x1 #s(literal 1 binary32))",
+      "pre": "TRUE",
+      "prec": "binary32",
+      "spec": "(+ (* x1 x1) 1)",
+      "start": 0.003,
+      "status": "ex-start",
+      "target": [],
+      "target-prog": "()",
+      "time": 745.310791015625,
+      "vars": [
+        "x0",
+        "x1",
+        "x2"
+      ],
+      "warnings": [
+        "inf-points"
+      ]
+    },
+    {
+      "bits": 32,
+      "conversions": [],
+      "cost-accuracy": [
+        [
+          4.4,
+          10.601
+        ],
+        [
+          5.1,
+          0.155,
+          "(if.f32 (<=.f32 x1 #s(literal -10000000 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal -2 binary32) x0 #s(approx (* -1 (/ (- (* 2 x2) (* -2 x0)) x1)) (*.f32 #s(literal -2 binary32) (/.f32 x2 x1)))) x2)) (if.f32 (<=.f32 x1 #s(literal 6000 binary32)) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 (/.f32 x1 (-.f32 (sqrt.f32 (+.f32 (fma.f32 x1 x1 #s(literal 1/2 binary32)) #s(literal 1/2 binary32))) #s(literal -1 binary32))) x2)) (/.f32 x1 (-.f32 (sqrt.f32 (+.f32 (fma.f32 x1 x1 #s(literal 1/2 binary32)) #s(literal 1/2 binary32))) #s(literal -1 binary32)))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal 2 binary32) x0 (*.f32 #s(literal 2 binary32) (/.f32 x2 x1))) (+.f32 x2 (*.f32 #s(literal 2 binary32) (/.f32 x0 x1)))))))"
+        ],
+        [
+          [
+            4.45,
+            0.155,
+            "(if.f32 (<=.f32 x1 #s(literal -10000000 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal -2 binary32) x0 #s(approx (* -1 (/ (- (* 2 x2) (* -2 x0)) x1)) (*.f32 #s(literal -2 binary32) (/.f32 x2 x1)))) x2)) (if.f32 (<=.f32 x1 #s(literal 6000 binary32)) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 (/.f32 x1 (+.f32 #s(literal 1 binary32) (sqrt.f32 (fma.f32 x1 x1 #s(literal 1 binary32))))) x2)) (/.f32 x1 (+.f32 #s(literal 1 binary32) (sqrt.f32 (fma.f32 x1 x1 #s(literal 1 binary32)))))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal 2 binary32) x0 (*.f32 #s(literal 2 binary32) (/.f32 x2 x1))) (+.f32 x2 (*.f32 #s(literal 2 binary32) (/.f32 x0 x1)))))))"
+          ],
+          [
+            4,
+            0.874,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 x2 (+.f32 x0 x0)) (/.f32 (*.f32 #s(literal 2 binary32) (+.f32 x2 x0)) x1)))) (if.f32 (<=.f32 x1 #s(literal 1 binary32)) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (*.f32 x1 (+.f32 #s(literal 1/2 binary32) (*.f32 #s(literal -1/8 binary32) (*.f32 x1 x1))))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (*.f32 x1 (+.f32 #s(literal 1/2 binary32) (*.f32 #s(literal -1/8 binary32) (*.f32 x1 x1)))))) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))))))"
+          ],
+          [
+            3.85,
+            0.874,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 x2 (+.f32 x0 x0)) (/.f32 (*.f32 #s(literal 2 binary32) (+.f32 x2 x0)) x1)))) (if.f32 (<=.f32 x1 #s(literal 1 binary32)) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (*.f32 x1 (fma.f32 x1 (*.f32 #s(literal -1/8 binary32) x1) #s(literal 1/2 binary32)))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (*.f32 x1 (fma.f32 x1 (*.f32 #s(literal -1/8 binary32) x1) #s(literal 1/2 binary32))))) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))))))"
+          ],
+          [
+            3.2,
+            1.08,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 x2 (+.f32 x0 x0)) (/.f32 (*.f32 #s(literal 2 binary32) (+.f32 x2 x0)) x1)))) (if.f32 (<=.f32 x1 #s(literal 13421773/8388608 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))))))"
+          ],
+          [
+            3.2,
+            1.093,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 (+.f32 x2 x0) x0) (/.f32 (+.f32 (+.f32 x2 x0) (+.f32 x2 x0)) x1)))) (if.f32 (<=.f32 x1 #s(literal 13421773/8388608 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))) x2)) #s(approx (/ x1 (+ 1 (sqrt (+ (* x1 x1) 1)))) (-.f32 #s(literal 1 binary32) (/.f32 #s(literal 1 binary32) x1))))))"
+          ],
+          [
+            2.6,
+            1.1,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 (+.f32 x2 x0) x0) (/.f32 (+.f32 (+.f32 x2 x0) (+.f32 x2 x0)) x1)))) (if.f32 (<=.f32 x1 #s(literal 2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 (+.f32 (/.f32 (-.f32 x2 x0) x1) x0) (+.f32 (/.f32 (-.f32 x2 x0) x1) x0)) x2))))"
+          ],
+          [
+            2.6,
+            1.102,
+            "(if.f32 (<=.f32 x1 #s(literal -3/2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 (+.f32 x2 x0) (+.f32 x0 (/.f32 (+.f32 (+.f32 x2 x0) (+.f32 x2 x0)) x1))))) (if.f32 (<=.f32 x1 #s(literal 2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 (+.f32 (/.f32 (-.f32 x2 x0) x1) x0) (+.f32 (/.f32 (-.f32 x2 x0) x1) x0)) x2))))"
+          ],
+          [
+            2.6,
+            1.31,
+            "(if.f32 (<=.f32 x1 #s(literal -2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 (+.f32 (/.f32 (-.f32 x2 x0) x1) x0) (+.f32 (/.f32 (-.f32 x2 x0) x1) x0)) x2))))"
+          ],
+          [
+            2.2,
+            1.474,
+            "(if.f32 (<=.f32 x1 #s(literal -2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 x2 (*.f32 #s(literal -1/4 binary32) x1) x0))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1))) #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1)))) x2))))"
+          ],
+          [
+            2.2,
+            1.476,
+            "(if.f32 (<=.f32 x1 #s(literal -2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 2 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 (fma.f32 #s(literal -1/4 binary32) (*.f32 x2 x1) x0))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1))) #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1)))) x2))))"
+          ],
+          [
+            2.2,
+            5.292,
+            "(if.f32 (<=.f32 x1 #s(literal -13421773/268435456 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 5452595/8388608 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 #s(approx (+ x0 (* -1/4 (* x1 x2))) (*.f32 x0 #s(approx (+ 1 (* -1/4 (/ (* x1 x2) x0))) #s(literal 1 binary32)))))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1))) #s(approx (+ (/ (- x2 x0) x1) x0) (-.f32 x0 (/.f32 x0 x1)))) x2))))"
+          ],
+          [
+            1.325,
+            5.449,
+            "(if.f32 (<=.f32 x1 #s(literal -13421773/268435456 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 13421773/67108864 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 x1 #s(approx (+ x0 (* -1/4 (* x1 x2))) (*.f32 x0 #s(approx (+ 1 (* -1/4 (/ (* x1 x2) x0))) #s(literal 1 binary32)))))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2))))"
+          ],
+          [
+            1.325,
+            13.356,
+            "(if.f32 (<=.f32 x1 #s(literal -9907919/18014398509481984 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) (if.f32 (<=.f32 x1 #s(literal 2125065/2361183241434822606848 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 #s(literal 2 binary32) #s(approx (/ (* x0 x1) (+ 1 (sqrt (+ 1 (* x1 x1))))) (neg.f32 #s(approx x0 #s(literal 0 binary32)))))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2))))"
+          ],
+          [
+            0.875,
+            15.427,
+            "(if.f32 (<=.f32 x1 #s(literal -3568119/356811923176489970264571492362373784095686656 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (neg.f32 (+.f32 x0 x0)) x2)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2)))"
+          ],
+          [
+            0.875,
+            15.438,
+            "(if.f32 (<=.f32 x1 #s(literal -3568119/356811923176489970264571492362373784095686656 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (neg.f32 (+.f32 x0 (+.f32 x2 x0)))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2)))"
+          ],
+          [
+            0.85,
+            19.019,
+            "(if.f32 (<=.f32 x1 #s(literal 11977939/10889035741470030830827987437816582766592 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (*.f32 #s(literal 2 binary32) #s(approx (/ (* x0 x1) (+ 1 (sqrt (+ 1 (* x1 x1))))) (neg.f32 x0)))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2)))"
+          ],
+          [
+            0.4,
+            19.858,
+            "#s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (+.f32 x0 x0) x2))"
+          ],
+          [
+            0.4,
+            19.87,
+            "#s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (+.f32 x0 (-.f32 x0 x2)))"
+          ],
+          [
+            0.125,
+            23.207,
+            "#s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) #s(approx (- (* 2 x0) x2) (neg.f32 x2)))"
+          ]
+        ]
+      ],
+      "end": 0.15480997437124994,
+      "identifier": "#f",
+      "input": "(/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1.0)) 1.0)))) (+ (sqrt (+ (* x1 x1) 1.0)) 1.0))",
+      "link": "1-jvp2",
+      "name": "jvp/2",
+      "output": "(if.f32 (<=.f32 x1 #s(literal -10000000 binary32)) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal -2 binary32) x0 #s(approx (* -1 (/ (- (* 2 x2) (* -2 x0)) x1)) (*.f32 #s(literal -2 binary32) (/.f32 x2 x1)))) x2)) (if.f32 (<=.f32 x1 #s(literal 6000 binary32)) (*.f32 (-.f32 (+.f32 x0 x0) (*.f32 (/.f32 x1 (-.f32 (sqrt.f32 (+.f32 (fma.f32 x1 x1 #s(literal 1/2 binary32)) #s(literal 1/2 binary32))) #s(literal -1 binary32))) x2)) (/.f32 x1 (-.f32 (sqrt.f32 (+.f32 (fma.f32 x1 x1 #s(literal 1/2 binary32)) #s(literal 1/2 binary32))) #s(literal -1 binary32)))) #s(approx (/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1)) (-.f32 (fma.f32 #s(literal 2 binary32) x0 (*.f32 #s(literal 2 binary32) (/.f32 x2 x1))) (+.f32 x2 (*.f32 #s(literal 2 binary32) (/.f32 x0 x1)))))))",
+      "pre": "TRUE",
+      "prec": "binary32",
+      "spec": "(/ (- (+ (* x0 x1) (* x0 x1)) (* x2 (/ (* x1 x1) (+ (sqrt (+ (* x1 x1) 1)) 1)))) (+ (sqrt (+ (* x1 x1) 1)) 1))",
+      "start": 10.600609533335088,
+      "status": "imp-start",
+      "target": [],
+      "target-prog": "()",
+      "time": 16510.852783203125,
+      "vars": [
+        "x0",
+        "x1",
+        "x2"
+      ],
+      "warnings": []
+    },
+    {
+      "bits": 32,
+      "conversions": [],
+      "cost-accuracy": [
+        [
+          2.25,
+          8.519
+        ],
+        [
+          2.775,
+          0.03,
+          "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 51 binary32)) (*.f32 x0 (/.f32 (fabs.f32 x1) (sqrt.f32 (fma.f32 (fabs.f32 x1) (fabs.f32 x1) #s(literal 1 binary32))))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (-.f32 x0 (/.f32 x0 (*.f32 (+.f32 (fabs.f32 x1) (fabs.f32 x1)) (fabs.f32 x1)))))))"
+        ],
+        [
+          [
+            3.05,
+            0.449,
+            "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 1 binary32)) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (fma.f32 (*.f32 #s(literal -1/2 binary32) (*.f32 (fabs.f32 x1) (fabs.f32 x1))) (*.f32 (fabs.f32 x1) x0) (*.f32 (fabs.f32 x1) x0))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (+.f32 x0 (*.f32 (/.f32 #s(literal -1/2 binary32) (fabs.f32 x1)) (/.f32 x0 (fabs.f32 x1)))))))"
+          ],
+          [
+            3.05,
+            0.449,
+            "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 1 binary32)) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (fma.f32 (*.f32 #s(literal -1/2 binary32) (*.f32 (fabs.f32 x1) (fabs.f32 x1))) (*.f32 (fabs.f32 x1) x0) (*.f32 (fabs.f32 x1) x0))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (-.f32 x0 (/.f32 x0 (*.f32 (+.f32 (fabs.f32 x1) (fabs.f32 x1)) (fabs.f32 x1)))))))"
+          ],
+          [
+            2.675,
+            0.452,
+            "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 1 binary32)) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (*.f32 (fabs.f32 x1) (fma.f32 x0 (*.f32 (*.f32 (fabs.f32 x1) (fabs.f32 x1)) #s(literal -1/2 binary32)) x0))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (-.f32 x0 (/.f32 x0 (*.f32 (+.f32 (fabs.f32 x1) (fabs.f32 x1)) (fabs.f32 x1)))))))"
+          ],
+          [
+            2.425,
+            0.709,
+            "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 1 binary32)) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (*.f32 x0 (fabs.f32 x1))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (-.f32 x0 (/.f32 x0 (*.f32 (+.f32 (fabs.f32 x1) (fabs.f32 x1)) (fabs.f32 x1)))))))"
+          ],
+          [
+            1.525,
+            0.955,
+            "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 1 binary32)) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (*.f32 x0 (fabs.f32 x1))) (/.f32 x0 #s(approx (/ (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) (fabs.f32 x1)) #s(literal 1 binary32)))))"
+          ],
+          [
+            0.25,
+            14.789,
+            "#s(approx (/ (+ (* x0 x1) (* x0 x1)) (* (sqrt (+ (* x1 x1) 1)) 2)) (*.f32 x0 x1))"
+          ],
+          [
+            0.25,
+            26.317,
+            "#s(approx (/ (+ (* x0 x1) (* x0 x1)) (* (sqrt (+ (* x1 x1) 1)) 2)) (neg.f32 #s(approx x0 #s(literal 0 binary32))))"
+          ],
+          [
+            0.125,
+            22.178,
+            "#s(approx (/ (+ (* x0 x1) (* x0 x1)) (* (sqrt (+ (* x1 x1) 1)) 2)) (neg.f32 x0))"
+          ]
+        ]
+      ],
+      "end": 0.02966748125036058,
+      "identifier": "#f",
+      "input": "(/ (+ (* x0 x1) (* x0 x1)) (* (sqrt (+ (* x1 x1) 1.0)) 2.0))",
+      "link": "0-jvp1",
+      "name": "jvp/1",
+      "output": "(*.f32 (copysign.f32 #s(literal 1 binary32) x1) (if.f32 (<=.f32 (fabs.f32 x1) #s(literal 51 binary32)) (*.f32 x0 (/.f32 (fabs.f32 x1) (sqrt.f32 (fma.f32 (fabs.f32 x1) (fabs.f32 x1) #s(literal 1 binary32))))) #s(approx (/ (+ (* x0 (fabs.f32 x1)) (* x0 (fabs.f32 x1))) (* (sqrt (+ (* (fabs.f32 x1) (fabs.f32 x1)) 1)) 2)) (-.f32 x0 (/.f32 x0 (*.f32 (+.f32 (fabs.f32 x1) (fabs.f32 x1)) (fabs.f32 x1)))))))",
+      "pre": "TRUE",
+      "prec": "binary32",
+      "spec": "(/ (+ (* x0 x1) (* x0 x1)) (* (sqrt (+ (* x1 x1) 1)) 2))",
+      "start": 8.518840330453724,
+      "status": "imp-start",
+      "target": [],
+      "target-prog": "()",
+      "time": 4908.4873046875,
+      "vars": [
+        "x0",
+        "x1",
+        "x2"
+      ],
+      "warnings": []
+    }
+  ]
+}
